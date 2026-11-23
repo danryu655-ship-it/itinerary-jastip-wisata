@@ -1,6 +1,8 @@
-# Itinerary, Jastip & Wisata — Versi Statis
+# Liburan Seru — Versi Statis
 
-Website statis (satu file `index.html`) untuk membuat itinerary, mencatat jastip, dan menyimpan tempat wisata, tempat makan, dan hotel — untuk semua destinasi.
+Website statis (satu file `index.html`) **Liburan Seru** untuk membuat itinerary, mencatat jastip, dan menyimpan tempat wisata, tempat makan, dan hotel — untuk semua destinasi.
+
+Logo: koper toska-biru tersenyum dengan matahari kuning, pesawat kertas koral, dan daun palem (SVG inline di `index.html`, juga dipakai sebagai favicon). Nama brand "Liburan Seru" sama di mode Bahasa Indonesia dan Inggris.
 
 Buka lewat GitHub Pages: https://danryu655-ship-it.github.io/itinerary-jastip-wisata/
 
