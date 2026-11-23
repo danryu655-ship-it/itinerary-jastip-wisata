@@ -5,47 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Itinerary, Jastip &amp; Wisata</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0f172a;color:#e2e8f0;padding-bottom:170px}
-a{color:#2dd4bf}header{padding:22px 16px 12px;max-width:960px;margin:0 auto}
-header h1{margin:0;font-size:26px}header p{color:#94a3b8;margin:6px 0 0}
-.note{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 12px;color:#cbd5e1;font-size:13px;max-width:960px;margin:10px auto 0}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dff3ff;background-image:radial-gradient(600px 300px at 10% 0%,rgba(45,212,191,.35),transparent 60%),radial-gradient(600px 320px at 90% 10%,rgba(250,204,21,.4),transparent 60%),radial-gradient(500px 300px at 50% 100%,rgba(56,189,248,.25),transparent 60%),linear-gradient(180deg,#bae6fd 0%,#e0f2fe 35%,#fef9c3 100%);background-attachment:fixed;color:#0f2a3d;padding-bottom:170px}
+a{color:#0284c7}
+header{padding:22px 16px 12px;max-width:960px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0ea5e9 0%,#14b8a6 45%,#f59e0b 100%);border-radius:24px;padding:26px 22px;color:#fff;box-shadow:0 16px 40px rgba(14,165,233,.35)}
+.hero h1{margin:0;font-size:28px;text-shadow:0 2px 10px rgba(0,0,0,.15)}
+.hero p{color:#f0f9ff;margin:8px 0 0;font-size:15px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hero-stats span{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(6px);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;color:#fff}
+.note{background:#ffffff;border:1px solid #bae6fd;border-radius:14px;padding:10px 12px;color:#334155;font-size:13px;max-width:960px;margin:10px auto 0;box-shadow:0 6px 18px rgba(14,165,233,.12)}
 main{max-width:960px;margin:0 auto;padding:12px 16px}
 section.tab{display:none}section.tab.active{display:block}
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:16px;margin:12px 0}
-h2{margin:0 0 8px}h3{margin:14px 0 6px}
-label{display:block;font-size:13px;color:#94a3b8;margin:10px 0 4px}
-input,select,textarea{width:100%;padding:10px;border-radius:9px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:15px}
-button{cursor:pointer;border:0;border-radius:999px;padding:10px 16px;font-weight:700;background:#14b8a6;color:#042f2e}
-button.ghost{background:#334155;color:#e2e8f0}button.danger{background:#7f1d1d;color:#fee2e2}button.small{padding:6px 10px;font-size:13px}
+.card{background:#ffffff;border:1px solid #bae6fd;border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 10px 28px rgba(14,165,233,.14)}
+h2{margin:0 0 8px;color:#0c4a6e}h3{margin:14px 0 6px;color:#155e75}
+label{display:block;font-size:13px;color:#475569;margin:10px 0 4px;font-weight:600}
+input,select,textarea{width:100%;padding:10px;border-radius:12px;border:1px solid #7dd3fc;background:#f0f9ff;color:#0f2a3d;font-size:15px}
+button{cursor:pointer;border:0;border-radius:999px;padding:10px 16px;font-weight:700;background:linear-gradient(90deg,#14b8a6,#0ea5e9);color:#fff;box-shadow:0 6px 16px rgba(20,184,166,.35)}
+button.ghost{background:#e0f2fe;color:#0c4a6e;box-shadow:none}button.danger{background:#ef4444;color:#fff;box-shadow:0 6px 16px rgba(239,68,68,.3)}button.small{padding:6px 10px;font-size:13px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.row{grid-template-columns:1fr}}
-.item{border:1px solid #334155;border-radius:10px;padding:10px;margin:8px 0;background:#0f172a}
+.item{border:1px solid #bae6fd;border-radius:14px;padding:10px;margin:8px 0;background:#f0f9ff}
 .item.done{opacity:.6}.item.done .t{text-decoration:line-through}
-.bar{height:10px;background:#334155;border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:#14b8a6}
-.dest{border:1px solid #334155;border-radius:14px;overflow:hidden;margin:12px 0;background:#1e293b}
-.dest .imgwrap{height:180px;background:linear-gradient(135deg,#0d9488,#7c3aed,#db2777);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px}
-.dest img{width:100%;height:180px;object-fit:cover;display:block}
-.dest .body{padding:14px}.pill{display:inline-block;background:#134e4a;color:#5eead4;border-radius:999px;padding:3px 9px;font-size:12px;margin:2px 4px 2px 0}
-.chip{background:#334155;color:#e2e8f0;border-radius:999px;padding:6px 10px;margin:3px;cursor:pointer;border:0}
-.chip.active{background:#14b8a6;color:#042f2e}
-/* floating bottom navbar */
-.navbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:50;background:#111827;border:1px solid #374151;border-radius:999px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;gap:6px;max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none}
+.bar{height:12px;background:#e0f2fe;border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#14b8a6,#0ea5e9)}
+.dest{border:1px solid #bae6fd;border-radius:22px;overflow:hidden;margin:12px 0;background:#fff;box-shadow:0 12px 30px rgba(14,165,233,.16)}
+.dest .imgwrap{height:180px;background:linear-gradient(135deg,#14b8a6,#38bdf8,#facc15);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;position:relative;overflow:hidden}
+.dest img{width:100%;height:180px;object-fit:cover;display:block;transition:transform .45s ease}
+.dest:hover img{transform:scale(1.07)}
+.season{position:absolute;top:10px;left:10px;z-index:2;background:linear-gradient(90deg,#fbbf24,#f97316);color:#fff;border-radius:999px;padding:5px 11px;font-size:12px;font-weight:800;box-shadow:0 4px 12px rgba(249,115,22,.45)}
+.dest .body{padding:14px}.pill{display:inline-block;background:#ccfbf1;color:#0f766e;border-radius:999px;padding:3px 9px;font-size:12px;margin:2px 4px 2px 0;font-weight:700}
+.chip{background:#e0f2fe;color:#0c4a6e;border-radius:999px;padding:6px 10px;margin:3px;cursor:pointer;border:0;box-shadow:none}
+.chip.active{background:linear-gradient(90deg,#14b8a6,#0ea5e9);color:#fff}
+/* floating bottom navbar - light glass */
+.navbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:8px;box-shadow:0 12px 32px rgba(14,165,233,.28);display:flex;gap:6px;max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none}
 .navbar::-webkit-scrollbar{display:none}
-.navbar button{white-space:nowrap;background:transparent;color:#d1d5db;padding:10px 14px}
-.navbar button.active{background:#14b8a6;color:#042f2e}
-/* floating AI */
-#aiBtn{position:fixed;right:16px;bottom:96px;z-index:60;background:#14b8a6;color:#042f2e;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.5);font-weight:800}
-#aiPanel{position:fixed;right:16px;bottom:150px;z-index:60;width:min(380px,calc(100vw - 32px));max-height:60vh;background:#1e293b;border:1px solid #475569;border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.navbar button{white-space:nowrap;background:transparent;color:#334155;padding:10px 14px;box-shadow:none}
+.navbar button.active{background:linear-gradient(90deg,#14b8a6,#0ea5e9);color:#fff}
+/* floating AI - bright orange */
+#aiBtn{position:fixed;right:16px;bottom:96px;z-index:60;background:linear-gradient(135deg,#fb923c,#f59e0b);color:#fff;border-radius:999px;padding:12px 16px;box-shadow:0 10px 26px rgba(249,115,22,.5);font-weight:800}
+#aiPanel{position:fixed;right:16px;bottom:150px;z-index:60;width:min(380px,calc(100vw - 32px));max-height:60vh;background:#fff;border:1px solid #fed7aa;border-radius:20px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 16px 44px rgba(249,115,22,.28)}
 #aiPanel.open{display:flex}
 #aiLog{padding:12px;overflow-y:auto;flex:1;font-size:14px}
-.msg{margin:8px 0;padding:10px;border-radius:10px}.msg.user{background:#0d9488;color:#fff;margin-left:30px}.msg.ai{background:#0f172a;border:1px solid #334155}
-#aiPanel .foot{display:flex;gap:8px;padding:10px;border-top:1px solid #334155}
-.muted{color:#94a3b8;font-size:13px}
+.msg{margin:8px 0;padding:10px;border-radius:12px}.msg.user{background:linear-gradient(90deg,#14b8a6,#0ea5e9);color:#fff;margin-left:30px}.msg.ai{background:#f0f9ff;border:1px solid #bae6fd;color:#0f2a3d}
+#aiPanel .foot{display:flex;gap:8px;padding:10px;border-top:1px solid #fed7aa}
+.ai-head{background:linear-gradient(90deg,#f97316,#f59e0b);color:#fff}
+.ai-head button{background:rgba(255,255,255,.25);color:#fff;box-shadow:none}
+.muted{color:#64748b;font-size:13px}
 </style>
 </head>
 <body>
 <header>
+<div class="hero">
 <h1>✈️ Itinerary, Jastip &amp; Wisata</h1>
 <p>Buat itinerary, catat jastip, dan simpan tempat wisata, makan, dan hotel — untuk semua destinasi.</p>
+<div class="hero-stats"><span>🌍 10 Destinasi</span><span>📋 4 Tab Fitur</span><span>☀️ Gratis &amp; Ceria</span></div>
+</div>
 </header>
 <div class="note">Versi statis untuk GitHub Pages. Data tersimpan di browser kamu (localStorage). Harga yang tampil adalah <b>perkiraan, cek ulang</b> sebelum berangkat. Chatbot di sini rule-based, bukan AI sungguhan.</div>
 <main>
@@ -116,23 +128,23 @@ button.ghost{background:#334155;color:#e2e8f0}button.danger{background:#7f1d1d;c
 </nav>
 <button id="aiBtn" onclick="toggleAI()">💬 Asisten AI</button>
 <div id="aiPanel">
-<div style="padding:12px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center"><b>💬 Asisten AI (rule-based)</b><button class="small ghost" onclick="toggleAI()">✕</button></div>
+<div class="ai-head" style="padding:12px;display:flex;justify-content:space-between;align-items:center"><b>💬 Asisten AI (rule-based)</b><button class="small ghost" onclick="toggleAI()">✕</button></div>
 <div id="aiLog"></div>
 <div style="padding:0 12px"><button class="small ghost" onclick="newChat()">Chat baru</button><span class="muted"> Harga/jam buka perlu dicek ulang. Tidak bisa booking dan tidak bisa mengubah data kamu. Riwayat hanya selama sesi ini.</span></div>
 <div class="foot"><input id="aiInput" placeholder="Tanya itinerary, wisata, kuliner..." onkeydown="if(event.key==='Enter')sendAI()"><button onclick="sendAI()">Kirim</button></div>
 </div>
 <script>
 const DESTS=[
-{city:"Osaka",country:"Jepang",img:"https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&q=80",wisata:"Kastil Osaka, Dotonbori, Kuromon Market, Umeda Sky, Universal Studios Japan",kuliner:"Takoyaki, okonomiyaki, kushikatsu di Shinsekai, ramen Dotonbori",hotel:"Area Namba / Dotonbori (ramai, dekat kuliner) atau Shin-Imamiya / Nishinari (lebih hemat, cek ulasan terbaru)",jastip:"Matcha KitKat, skincare, sneakers, gacha & figur anime"},
-{city:"Kyoto",country:"Jepang",img:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80",wisata:"Fushimi Inari, Kiyomizu-dera, Arashiyama Bamboo Grove, Kinkaku-ji, Gion",kuliner:"Yudofu, matcha parfait, ramen, pasar Nishiki",hotel:"Area Kyoto Station (praktis) atau Gion / Higashiyama (suasana lama)",jastip:"Keramik, matcha, kimono second, oleh-oleh kuil"},
-{city:"Tokyo",country:"Jepang",img:"https://images.unsplash.com/photo-1542051841857-5f900e9a6b9f?w=800&q=80",wisata:"Shibuya Crossing, Senso-ji Asakusa, Meiji Jingu, teamLab, Tokyo Skytree",kuliner:"Sushi, ramen, izakaya di Shinjuku, street food Asakusa",hotel:"Area Shinjuku / Shibuya (ramai) atau Ueno / Asakusa (lebih tenang)",jastip:"Elektronik, sneakers, skincare, merchandise anime Akihabara"},
-{city:"Bali",country:"Indonesia",img:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",wisata:"Uluwatu, Tanah Lot, Ubud, Nusa Penida, pantai Seminyak",kuliner:"Babi guling, ayam betutu, seafood Jimbaran, kafe Ubud",hotel:"Seminyak / Canggu (pantai & kafe) atau Ubud (sawah & tenang)",jastip:"Kopi, kain, perak Celuk, snack khas"},
-{city:"Yogyakarta",country:"Indonesia",img:"https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=800&q=80",wisata:"Borobudur, Prambanan, Malioboro, Keraton, Pantai Parangtritis",kuliner:"Gudeg, bakpia, sate klathak, angkringan",hotel:"Area Malioboro (pusat) atau Prawirotaman (turis, banyak kafe)",jastip:"Bakpia, batik, kopi, kerajinan perak Kotagede"},
-{city:"Seoul",country:"Korea Selatan",img:"https://images.unsplash.com/photo-1538485399081-7191377e8241?w=800&q=80",wisata:"Gyeongbokgung, Bukchon Hanok, Myeongdong, N Seoul Tower, Hongdae",kuliner:"Bibimbap, Korean BBQ, tteokbokki, kafe Hongdae",hotel:"Area Myeongdong (belanja) atau Hongdae (anak muda)",jastip:"Skincare, K-pop merch, fashion, snack Korea"},
-{city:"Bangkok",country:"Thailand",img:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",wisata:"Grand Palace, Wat Arun, Chatuchak, Chao Phraya, Khao San",kuliner:"Pad thai, tom yum, mango sticky rice, street food Yaowarat",hotel:"Area Sukhumvit (praktis) atau Riverside (pemandangan sungai)",jastip:"Snack Thailand, fashion Chatuchak, skincare"},
-{city:"Singapore",country:"Singapura",img:"https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80",wisata:"Marina Bay Sands, Gardens by the Bay, Sentosa, Chinatown, Little India",kuliner:"Hawker centre, laksa, chicken rice, chilli crab",hotel:"Area Bugis / Chinatown (hemat) atau Marina Bay (ikonik)",jastip:"Elektronik, cokelat, snack, parfum"},
-{city:"Kuala Lumpur",country:"Malaysia",img:"https://images.unsplash.com/photo-1596422846543-75d3b5e0d9b5?w=800&q=80",wisata:"Menara Petronas, Batu Caves, Bukit Bintang, KL Tower",kuliner:"Nasi lemak, satay, roti canai, Jalan Alor",hotel:"Area Bukit Bintang (belanja) atau KLCC (dekat Petronas)",jastip:"Cokelat, kopi, batik, snack Malaysia"},
-{city:"Labuan Bajo",country:"Indonesia",img:"https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",wisata:"Pulau Komodo, Pink Beach, Pulau Padar, snorkeling Manta Point",kuliner:"Seafood, ikan bakar, kafe di tepi pelabuhan",hotel:"Area pelabuhan Labuan Bajo (dekat kapal) — cek ulasan terbaru",jastip:"Kopi Flores, kain tenun, oleh-oleh laut"}
+{city:"Osaka",season:"Mar–Mei & Okt–Nov",country:"Jepang",img:"https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&q=80",wisata:"Kastil Osaka, Dotonbori, Kuromon Market, Umeda Sky, Universal Studios Japan",kuliner:"Takoyaki, okonomiyaki, kushikatsu di Shinsekai, ramen Dotonbori",hotel:"Area Namba / Dotonbori (ramai, dekat kuliner) atau Shin-Imamiya / Nishinari (lebih hemat, cek ulasan terbaru)",jastip:"Matcha KitKat, skincare, sneakers, gacha & figur anime"},
+{city:"Kyoto",season:"Mar–Apr & Nov",country:"Jepang",img:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80",wisata:"Fushimi Inari, Kiyomizu-dera, Arashiyama Bamboo Grove, Kinkaku-ji, Gion",kuliner:"Yudofu, matcha parfait, ramen, pasar Nishiki",hotel:"Area Kyoto Station (praktis) atau Gion / Higashiyama (suasana lama)",jastip:"Keramik, matcha, kimono second, oleh-oleh kuil"},
+{city:"Tokyo",season:"Mar–Mei & Okt–Nov",country:"Jepang",img:"https://images.unsplash.com/photo-1542051841857-5f900e9a6b9f?w=800&q=80",wisata:"Shibuya Crossing, Senso-ji Asakusa, Meiji Jingu, teamLab, Tokyo Skytree",kuliner:"Sushi, ramen, izakaya di Shinjuku, street food Asakusa",hotel:"Area Shinjuku / Shibuya (ramai) atau Ueno / Asakusa (lebih tenang)",jastip:"Elektronik, sneakers, skincare, merchandise anime Akihabara"},
+{city:"Bali",season:"Apr–Okt (kemarau)",country:"Indonesia",img:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",wisata:"Uluwatu, Tanah Lot, Ubud, Nusa Penida, pantai Seminyak",kuliner:"Babi guling, ayam betutu, seafood Jimbaran, kafe Ubud",hotel:"Seminyak / Canggu (pantai & kafe) atau Ubud (sawah & tenang)",jastip:"Kopi, kain, perak Celuk, snack khas"},
+{city:"Yogyakarta",season:"Mei–Sep (kemarau)",country:"Indonesia",img:"https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=800&q=80",wisata:"Borobudur, Prambanan, Malioboro, Keraton, Pantai Parangtritis",kuliner:"Gudeg, bakpia, sate klathak, angkringan",hotel:"Area Malioboro (pusat) atau Prawirotaman (turis, banyak kafe)",jastip:"Bakpia, batik, kopi, kerajinan perak Kotagede"},
+{city:"Seoul",season:"Apr–Mei & Sep–Nov",country:"Korea Selatan",img:"https://images.unsplash.com/photo-1538485399081-7191377e8241?w=800&q=80",wisata:"Gyeongbokgung, Bukchon Hanok, Myeongdong, N Seoul Tower, Hongdae",kuliner:"Bibimbap, Korean BBQ, tteokbokki, kafe Hongdae",hotel:"Area Myeongdong (belanja) atau Hongdae (anak muda)",jastip:"Skincare, K-pop merch, fashion, snack Korea"},
+{city:"Bangkok",season:"Nov–Feb (sejuk)",country:"Thailand",img:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",wisata:"Grand Palace, Wat Arun, Chatuchak, Chao Phraya, Khao San",kuliner:"Pad thai, tom yum, mango sticky rice, street food Yaowarat",hotel:"Area Sukhumvit (praktis) atau Riverside (pemandangan sungai)",jastip:"Snack Thailand, fashion Chatuchak, skincare"},
+{city:"Singapore",season:"Sepanjang tahun",country:"Singapura",img:"https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80",wisata:"Marina Bay Sands, Gardens by the Bay, Sentosa, Chinatown, Little India",kuliner:"Hawker centre, laksa, chicken rice, chilli crab",hotel:"Area Bugis / Chinatown (hemat) atau Marina Bay (ikonik)",jastip:"Elektronik, cokelat, snack, parfum"},
+{city:"Kuala Lumpur",season:"Sepanjang tahun",country:"Malaysia",img:"https://images.unsplash.com/photo-1596422846543-75d3b5e0d9b5?w=800&q=80",wisata:"Menara Petronas, Batu Caves, Bukit Bintang, KL Tower",kuliner:"Nasi lemak, satay, roti canai, Jalan Alor",hotel:"Area Bukit Bintang (belanja) atau KLCC (dekat Petronas)",jastip:"Cokelat, kopi, batik, snack Malaysia"},
+{city:"Labuan Bajo",season:"Apr–Nov (kemarau)",country:"Indonesia",img:"https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",wisata:"Pulau Komodo, Pink Beach, Pulau Padar, snorkeling Manta Point",kuliner:"Seafood, ikan bakar, kafe di tepi pelabuhan",hotel:"Area pelabuhan Labuan Bajo (dekat kapal) — cek ulasan terbaru",jastip:"Kopi Flores, kain tenun, oleh-oleh laut"}
 ];
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
@@ -156,7 +168,7 @@ function renderJastip(){let total=jastip.reduce((s,j)=>s+Number(j.price||0)+Numb
 function addPlace(){let n=document.getElementById('pName').value.trim(),c=document.getElementById('pCity').value.trim(),cat=document.getElementById('pCat').value,r=Number(document.getElementById('pRating').value||5),l=document.getElementById('pLink').value.trim();if(!n||!c){alert('Isi nama tempat dan kota dulu.');return}places.push({id:Date.now(),name:n,city:c,cat:cat,rating:Math.max(1,Math.min(5,r)),link:l});save('ijw_places',places);renderPlaces()}
 function delPlace(id){if(!confirm('Hapus tempat ini?'))return;places=places.filter(x=>String(x.id)!==String(id));save('ijw_places',places);renderPlaces()}
 function renderPlaces(){let cats=['semua','wisata','makan','hotel'];document.getElementById('placeFilters').innerHTML=cats.map(c=>'<button class="chip'+(placeFilter===c?' active':'')+'" onclick="placeFilter=\''+c+'\';renderPlaces()">'+c+'</button>').join('');let list=places.filter(p=>placeFilter==='semua'||p.cat===placeFilter);document.getElementById('placeList').innerHTML=list.length?list.map(p=>'<div class="item"><b>'+p.name+'</b> — '+p.city+' <span class="pill">'+p.cat+'</span> ★'.repeat(0)+'<span> Rating: '+p.rating+'/5</span>'+(p.link?'<br><a href="'+p.link+'" target="_blank" rel="noopener">Buka di Google Maps ↗</a>':'')+'<br><button class="small danger" onclick="delPlace('+p.id+')">Hapus</button></div>').join(''):'<p class="muted">Belum ada tempat tersimpan untuk filter ini.</p>'}
-function renderDests(){let q=(document.getElementById('searchCity').value||'').toLowerCase().trim();let list=DESTS.filter(d=>!q||d.city.toLowerCase().includes(q)||d.country.toLowerCase().includes(q));let el=document.getElementById('destList');if(!list.length){el.innerHTML='<div class="card"><b>Kota "'+document.getElementById('searchCity').value+'” belum ada di katalog versi statis ini.</b><p class="muted">Kami tidak mengarang link booking atau harga untuk kota itu. Coba: Osaka, Kyoto, Tokyo, Bali, Yogyakarta, Seoul, Bangkok, Singapore, Kuala Lumpur, atau Labuan Bajo.</p></div>';return}el.innerHTML=list.map(d=>'<div class="dest"><div class="imgwrap"><img src="'+d.img+'" alt="'+d.city+'" loading="lazy" onerror="this.style.display=\'none\'"><span style="position:absolute"></span></div><div class="body"><h3>'+d.city+', '+d.country+'</h3><p><b>Wisata:</b> '+d.wisata+'</p><p><b>Kuliner:</b> '+d.kuliner+'</p><p><b>Hotel:</b> '+d.hotel+' <span class="muted">(harga perkiraan, cek ulang)</span></p><p><b>Ide jastip:</b> '+d.jastip+'</p><button onclick="makeTripFor(\''+d.city+'\')">✈️ Buat rencana ke '+d.city+'</button></div></div>').join('')}
+function renderDests(){let q=(document.getElementById('searchCity').value||'').toLowerCase().trim();let list=DESTS.filter(d=>!q||d.city.toLowerCase().includes(q)||d.country.toLowerCase().includes(q));let el=document.getElementById('destList');if(!list.length){el.innerHTML='<div class="card"><b>Kota "'+document.getElementById('searchCity').value+'” belum ada di katalog versi statis ini.</b><p class="muted">Kami tidak mengarang link booking atau harga untuk kota itu. Coba: Osaka, Kyoto, Tokyo, Bali, Yogyakarta, Seoul, Bangkok, Singapore, Kuala Lumpur, atau Labuan Bajo.</p></div>';return}el.innerHTML=list.map(d=>'<div class="dest"><div class="imgwrap"><span class="season">☀️ Terbaik: '+d.season+'</span><img src="'+d.img+'" alt="'+d.city+'" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="body"><h3>'+d.city+', '+d.country+'</h3><p><b>Wisata:</b> '+d.wisata+'</p><p><b>Kuliner:</b> '+d.kuliner+'</p><p><b>Hotel:</b> '+d.hotel+' <span class="muted">(harga perkiraan, cek ulang)</span></p><p><b>Ide jastip:</b> '+d.jastip+'</p><button onclick="makeTripFor(\''+d.city+'\')">✈️ Buat rencana ke '+d.city+'</button></div></div>').join('')}
 function makeTripFor(city){document.getElementById('tripCity').value=city;document.getElementById('tripName').value='Trip '+city;showTab('rencana',document.querySelector('.navbar button'));document.getElementById('tripName').focus();alert('Kota sudah diisi: '+city+'. Lengkapi tanggal & budget, lalu tekan Buat Trip.')}
 function renderAll(){renderTrips();renderJastip();renderPlaces();renderDests()}
 // AI chatbot rule-based
