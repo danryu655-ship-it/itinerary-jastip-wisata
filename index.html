@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itinerary, Jastip &amp; Wisata</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0f172a;color:#e2e8f0;padding-bottom:170px}
+a{color:#2dd4bf}header{padding:22px 16px 12px;max-width:960px;margin:0 auto}
+header h1{margin:0;font-size:26px}header p{color:#94a3b8;margin:6px 0 0}
+.note{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 12px;color:#cbd5e1;font-size:13px;max-width:960px;margin:10px auto 0}
+main{max-width:960px;margin:0 auto;padding:12px 16px}
+section.tab{display:none}section.tab.active{display:block}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:16px;margin:12px 0}
+h2{margin:0 0 8px}h3{margin:14px 0 6px}
+label{display:block;font-size:13px;color:#94a3b8;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:10px;border-radius:9px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:15px}
+button{cursor:pointer;border:0;border-radius:999px;padding:10px 16px;font-weight:700;background:#14b8a6;color:#042f2e}
+button.ghost{background:#334155;color:#e2e8f0}button.danger{background:#7f1d1d;color:#fee2e2}button.small{padding:6px 10px;font-size:13px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+.item{border:1px solid #334155;border-radius:10px;padding:10px;margin:8px 0;background:#0f172a}
+.item.done{opacity:.6}.item.done .t{text-decoration:line-through}
+.bar{height:10px;background:#334155;border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:#14b8a6}
+.dest{border:1px solid #334155;border-radius:14px;overflow:hidden;margin:12px 0;background:#1e293b}
+.dest .imgwrap{height:180px;background:linear-gradient(135deg,#0d9488,#7c3aed,#db2777);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px}
+.dest img{width:100%;height:180px;object-fit:cover;display:block}
+.dest .body{padding:14px}.pill{display:inline-block;background:#134e4a;color:#5eead4;border-radius:999px;padding:3px 9px;font-size:12px;margin:2px 4px 2px 0}
+.chip{background:#334155;color:#e2e8f0;border-radius:999px;padding:6px 10px;margin:3px;cursor:pointer;border:0}
+.chip.active{background:#14b8a6;color:#042f2e}
+/* floating bottom navbar */
+.navbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:50;background:#111827;border:1px solid #374151;border-radius:999px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;gap:6px;max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none}
+.navbar::-webkit-scrollbar{display:none}
+.navbar button{white-space:nowrap;background:transparent;color:#d1d5db;padding:10px 14px}
+.navbar button.active{background:#14b8a6;color:#042f2e}
+/* floating AI */
+#aiBtn{position:fixed;right:16px;bottom:96px;z-index:60;background:#14b8a6;color:#042f2e;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.5);font-weight:800}
+#aiPanel{position:fixed;right:16px;bottom:150px;z-index:60;width:min(380px,calc(100vw - 32px));max-height:60vh;background:#1e293b;border:1px solid #475569;border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+#aiPanel.open{display:flex}
+#aiLog{padding:12px;overflow-y:auto;flex:1;font-size:14px}
+.msg{margin:8px 0;padding:10px;border-radius:10px}.msg.user{background:#0d9488;color:#fff;margin-left:30px}.msg.ai{background:#0f172a;border:1px solid #334155}
+#aiPanel .foot{display:flex;gap:8px;padding:10px;border-top:1px solid #334155}
+.muted{color:#94a3b8;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>✈️ Itinerary, Jastip &amp; Wisata</h1>
+<p>Buat itinerary, catat jastip, dan simpan tempat wisata, makan, dan hotel — untuk semua destinasi.</p>
+</header>
+<div class="note">Versi statis untuk GitHub Pages. Data tersimpan di browser kamu (localStorage). Harga yang tampil adalah <b>perkiraan, cek ulang</b> sebelum berangkat. Chatbot di sini rule-based, bukan AI sungguhan.</div>
+<main>
+<!-- RENCANA -->
+<section id="tab-rencana" class="tab active">
+<h2>📋 Rencana &amp; Itinerary</h2>
+<div class="card">
+<h3>Buat Trip Baru</h3>
+<label>Nama trip</label><input id="tripName" placeholder="cth: Jepang 18–26 Jan 2027">
+<div class="row"><div><label>Kota / destinasi</label><input id="tripCity" placeholder="cth: Osaka"></div><div><label>Budget total (Rp)</label><input id="tripBudget" type="number" placeholder="cth: 10000000"></div></div>
+<div class="row"><div><label>Tanggal mulai</label><input id="tripStart" type="date"></div><div><label>Tanggal selesai</label><input id="tripEnd" type="date"></div></div>
+<button onclick="addTrip()" style="margin-top:12px">+ Buat Trip</button>
+</div>
+<div id="tripList"></div>
+<div class="card">
+<h3>Tambah Item Itinerary</h3>
+<label>Pilih trip</label><select id="itemTrip"></select>
+<div class="row"><div><label>Tanggal</label><input id="itemDate" type="date"></div><div><label>Jam</label><input id="itemTime" type="time" value="09:00"></div></div>
+<label>Judul kegiatan</label><input id="itemTitle" placeholder="cth: Kastil Osaka">
+<div class="row"><div><label>Kategori</label><select id="itemCat"><option>wisata</option><option>makan</option><option>hotel</option><option>transport</option><option>belanja</option></select></div><div><label>Perkiraan biaya (Rp)</label><input id="itemCost" type="number" value="0"></div></div>
+<button onclick="addItem()" style="margin-top:12px">+ Tambah Item</button>
+<button class="ghost" onclick="copyItinerary()">📋 Salin Itinerary</button>
+</div>
+</section>
+<!-- JASTIP -->
+<section id="tab-jastip" class="tab">
+<h2>🛍️ Jastip</h2>
+<div class="card">
+<h3>Titipan Baru</h3>
+<div class="row"><div><label>Yang nitip</label><input id="jName" placeholder="cth: Villia"></div><div><label>Barang</label><input id="jItem" placeholder="cth: Matcha KitKat"></div></div>
+<div class="row"><div><label>Toko / kota</label><input id="jShop" placeholder="cth: Don Quijote, Osaka"></div><div><label>Harga (Rp)</label><input id="jPrice" type="number" placeholder="50000"></div></div>
+<div class="row"><div><label>Fee (Rp)</label><input id="jFee" type="number" value="0"></div><div><label>Prioritas</label><select id="jPriority"><option>Normal</option><option>Penting</option><option>Wajib</option></select></div></div>
+<button onclick="addJastip()" style="margin-top:12px">+ Tambah Titipan</button>
+</div>
+<div class="card"><div id="jastipSummary" class="muted"></div><div id="jastipList"></div></div>
+</section>
+<!-- JELAJAH -->
+<section id="tab-jelajah" class="tab">
+<h2>🧭 Jelajah &amp; Inspirasi</h2>
+<div class="card">
+<label>Cari kota</label><input id="searchCity" placeholder="cth: Kyoto, Bali, Seoul..." oninput="renderDests()">
+<p class="muted">Kota di luar katalog di bawah belum ada datanya di versi statis ini — kami tidak mengarang link booking atau harga palsu. Coba salah satu dari 10 kota katalog.</p>
+</div>
+<div id="destList"></div>
+</section>
+<!-- TEMPATKU -->
+<section id="tab-tempatku" class="tab">
+<h2>📍 Tempatku</h2>
+<div class="card">
+<h3>Simpan Tempat</h3>
+<div class="row"><div><label>Nama tempat</label><input id="pName" placeholder="cth: Dotonbori"></div><div><label>Kota</label><input id="pCity" placeholder="cth: Osaka"></div></div>
+<div class="row"><div><label>Kategori</label><select id="pCat"><option>wisata</option><option>makan</option><option>hotel</option></select></div><div><label>Rating 1–5</label><input id="pRating" type="number" min="1" max="5" value="5"></div></div>
+<label>Link Google Maps</label><input id="pLink" placeholder="https://maps.google.com/?q=...">
+<button onclick="addPlace()" style="margin-top:12px">+ Simpan Tempat</button>
+</div>
+<div class="card">
+<div id="placeFilters"></div>
+<div id="placeList"></div>
+</div>
+</section>
+</main>
+<!-- floating navbar -->
+<nav class="navbar" aria-label="Navigasi utama">
+<button class="active" onclick="showTab('rencana',this)">📋 Rencana &amp; Itinerary</button>
+<button onclick="showTab('jastip',this)">🛍️ Jastip</button>
+<button onclick="showTab('jelajah',this)">🧭 Jelajah &amp; Inspirasi</button>
+<button onclick="showTab('tempatku',this)">📍 Tempatku</button>
+</nav>
+<button id="aiBtn" onclick="toggleAI()">💬 Asisten AI</button>
+<div id="aiPanel">
+<div style="padding:12px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center"><b>💬 Asisten AI (rule-based)</b><button class="small ghost" onclick="toggleAI()">✕</button></div>
+<div id="aiLog"></div>
+<div style="padding:0 12px"><button class="small ghost" onclick="newChat()">Chat baru</button><span class="muted"> Harga/jam buka perlu dicek ulang. Tidak bisa booking dan tidak bisa mengubah data kamu. Riwayat hanya selama sesi ini.</span></div>
+<div class="foot"><input id="aiInput" placeholder="Tanya itinerary, wisata, kuliner..." onkeydown="if(event.key==='Enter')sendAI()"><button onclick="sendAI()">Kirim</button></div>
+</div>
+<script>
+const DESTS=[
+{city:"Osaka",country:"Jepang",img:"https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&q=80",wisata:"Kastil Osaka, Dotonbori, Kuromon Market, Umeda Sky, Universal Studios Japan",kuliner:"Takoyaki, okonomiyaki, kushikatsu di Shinsekai, ramen Dotonbori",hotel:"Area Namba / Dotonbori (ramai, dekat kuliner) atau Shin-Imamiya / Nishinari (lebih hemat, cek ulasan terbaru)",jastip:"Matcha KitKat, skincare, sneakers, gacha & figur anime"},
+{city:"Kyoto",country:"Jepang",img:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80",wisata:"Fushimi Inari, Kiyomizu-dera, Arashiyama Bamboo Grove, Kinkaku-ji, Gion",kuliner:"Yudofu, matcha parfait, ramen, pasar Nishiki",hotel:"Area Kyoto Station (praktis) atau Gion / Higashiyama (suasana lama)",jastip:"Keramik, matcha, kimono second, oleh-oleh kuil"},
+{city:"Tokyo",country:"Jepang",img:"https://images.unsplash.com/photo-1542051841857-5f900e9a6b9f?w=800&q=80",wisata:"Shibuya Crossing, Senso-ji Asakusa, Meiji Jingu, teamLab, Tokyo Skytree",kuliner:"Sushi, ramen, izakaya di Shinjuku, street food Asakusa",hotel:"Area Shinjuku / Shibuya (ramai) atau Ueno / Asakusa (lebih tenang)",jastip:"Elektronik, sneakers, skincare, merchandise anime Akihabara"},
+{city:"Bali",country:"Indonesia",img:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",wisata:"Uluwatu, Tanah Lot, Ubud, Nusa Penida, pantai Seminyak",kuliner:"Babi guling, ayam betutu, seafood Jimbaran, kafe Ubud",hotel:"Seminyak / Canggu (pantai & kafe) atau Ubud (sawah & tenang)",jastip:"Kopi, kain, perak Celuk, snack khas"},
+{city:"Yogyakarta",country:"Indonesia",img:"https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=800&q=80",wisata:"Borobudur, Prambanan, Malioboro, Keraton, Pantai Parangtritis",kuliner:"Gudeg, bakpia, sate klathak, angkringan",hotel:"Area Malioboro (pusat) atau Prawirotaman (turis, banyak kafe)",jastip:"Bakpia, batik, kopi, kerajinan perak Kotagede"},
+{city:"Seoul",country:"Korea Selatan",img:"https://images.unsplash.com/photo-1538485399081-7191377e8241?w=800&q=80",wisata:"Gyeongbokgung, Bukchon Hanok, Myeongdong, N Seoul Tower, Hongdae",kuliner:"Bibimbap, Korean BBQ, tteokbokki, kafe Hongdae",hotel:"Area Myeongdong (belanja) atau Hongdae (anak muda)",jastip:"Skincare, K-pop merch, fashion, snack Korea"},
+{city:"Bangkok",country:"Thailand",img:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",wisata:"Grand Palace, Wat Arun, Chatuchak, Chao Phraya, Khao San",kuliner:"Pad thai, tom yum, mango sticky rice, street food Yaowarat",hotel:"Area Sukhumvit (praktis) atau Riverside (pemandangan sungai)",jastip:"Snack Thailand, fashion Chatuchak, skincare"},
+{city:"Singapore",country:"Singapura",img:"https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80",wisata:"Marina Bay Sands, Gardens by the Bay, Sentosa, Chinatown, Little India",kuliner:"Hawker centre, laksa, chicken rice, chilli crab",hotel:"Area Bugis / Chinatown (hemat) atau Marina Bay (ikonik)",jastip:"Elektronik, cokelat, snack, parfum"},
+{city:"Kuala Lumpur",country:"Malaysia",img:"https://images.unsplash.com/photo-1596422846543-75d3b5e0d9b5?w=800&q=80",wisata:"Menara Petronas, Batu Caves, Bukit Bintang, KL Tower",kuliner:"Nasi lemak, satay, roti canai, Jalan Alor",hotel:"Area Bukit Bintang (belanja) atau KLCC (dekat Petronas)",jastip:"Cokelat, kopi, batik, snack Malaysia"},
+{city:"Labuan Bajo",country:"Indonesia",img:"https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",wisata:"Pulau Komodo, Pink Beach, Pulau Padar, snorkeling Manta Point",kuliner:"Seafood, ikan bakar, kafe di tepi pelabuhan",hotel:"Area pelabuhan Labuan Bajo (dekat kapal) — cek ulasan terbaru",jastip:"Kopi Flores, kain tenun, oleh-oleh laut"}
+];
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+let trips=load('ijw_trips',[]), jastip=load('ijw_jastip',[]), places=load('ijw_places',[]);
+let placeFilter='semua';
+function fmt(n){return 'Rp'+Number(n||0).toLocaleString('id-ID')}
+function showTab(id,btn){document.querySelectorAll('section.tab').forEach(s=>s.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');document.querySelectorAll('.navbar button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function daysBetween(a,b){let out=[],d=new Date(a),e=new Date(b);while(d<=e){out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}return out}
+function addTrip(){let n=document.getElementById('tripName').value.trim(),c=document.getElementById('tripCity').value.trim(),s=document.getElementById('tripStart').value,e=document.getElementById('tripEnd').value,b=Number(document.getElementById('tripBudget').value||0);if(!n||!c||!s||!e){alert('Isi nama, kota, tanggal mulai dan selesai dulu.');return}if(e<s){alert('Tanggal selesai harus setelah tanggal mulai.');return}trips.push({id:Date.now(),name:n,city:c,start:s,end:e,budget:b,items:[]});save('ijw_trips',trips);renderAll();alert('Trip dibuat!')}
+function addItem(){let tid=document.getElementById('itemTrip').value;if(!tid){alert('Buat trip dulu.');return}let t=trips.find(x=>String(x.id)===String(tid));let d=document.getElementById('itemDate').value||t.start,ti=document.getElementById('itemTime').value,title=document.getElementById('itemTitle').value.trim(),cat=document.getElementById('itemCat').value,cost=Number(document.getElementById('itemCost').value||0);if(!title){alert('Isi judul kegiatan dulu.');return}t.items.push({id:Date.now(),date:d,time:ti,title:title,cat:cat,cost:cost,done:false});t.items.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));save('ijw_trips',trips);renderAll()}
+function toggleDone(tid,iid){let t=trips.find(x=>String(x.id)===String(tid));let it=t.items.find(x=>String(x.id)===String(iid));it.done=!it.done;save('ijw_trips',trips);renderAll()}
+function delItem(tid,iid){if(!confirm('Hapus item ini?'))return;let t=trips.find(x=>String(x.id)===String(tid));t.items=t.items.filter(x=>String(x.id)!==String(iid));save('ijw_trips',trips);renderAll()}
+function delTrip(tid){if(!confirm('Hapus trip ini beserta semua itemnya?'))return;trips=trips.filter(x=>String(x.id)!==String(tid));save('ijw_trips',trips);renderAll()}
+function copyItinerary(){let tid=document.getElementById('itemTrip').value;if(!tid){alert('Pilih trip dulu.');return}let t=trips.find(x=>String(x.id)===String(tid));let txt=t.name+' — '+t.city+' ('+t.start+' s.d. '+t.end+')\n';daysBetween(t.start,t.end).forEach(d=>{txt+='\n'+d+':\n';let its=t.items.filter(i=>i.date===d);if(!its.length)txt+='- (belum ada item)\n';its.forEach(i=>{txt+='- '+(i.time||'')+' '+(i.done?'[✓] ':'')+i.title+' ('+i.cat+', '+fmt(i.cost)+')\n'})});if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>alert('Itinerary disalin!')).catch(()=>{prompt('Salin manual:',txt)})}else{prompt('Salin manual:',txt)}}
+function renderTrips(){let el=document.getElementById('tripList');let sel=document.getElementById('itemTrip');sel.innerHTML=trips.map(t=>'<option value="'+t.id+'">'+t.name+' — '+t.city+'</option>').join('');if(!trips.length){el.innerHTML='<div class="card muted">Belum ada trip. Buat trip pertama kamu di atas.</div>';return}el.innerHTML=trips.map(t=>{let spent=t.items.reduce((s,i)=>s+Number(i.cost||0),0);let pct=t.budget?Math.min(100,Math.round(spent/t.budget*100)):0;let days=daysBetween(t.start,t.end).map(d=>{let its=t.items.filter(i=>i.date===d);return '<h3>'+d+'</h3>'+(its.length?its.map(i=>'<div class="item'+(i.done?' done':'')+'"><input type="checkbox" '+(i.done?'checked':'')+' onchange="toggleDone('+t.id+','+i.id+')"> <span class="t"><b>'+i.time+'</b> — '+i.title+'</span> <span class="pill">'+i.cat+'</span> '+fmt(i.cost)+' <button class="small danger" onclick="delItem('+t.id+','+i.id+')">Hapus</button></div>').join(''):'<p class="muted">Belum ada item hari ini.</p>')}).join('');return '<div class="card"><h3>'+t.name+' — '+t.city+'</h3><p class="muted">'+t.start+' s.d. '+t.end+' • Budget '+fmt(t.budget)+'</p><p>Terpakai '+fmt(spent)+' ('+pct+'%)</p><div class="bar"><i style="width:'+pct+'%"></i></div>'+days+'<button class="small danger" onclick="delTrip('+t.id+')" style="margin-top:10px">Hapus Trip</button></div>'}).join('')}
+const JSTATUS=['Dicari','Dibeli','Dibawa','Selesai'];
+function addJastip(){let n=document.getElementById('jName').value.trim(),it=document.getElementById('jItem').value.trim(),sh=document.getElementById('jShop').value.trim(),pr=Number(document.getElementById('jPrice').value||0),fe=Number(document.getElementById('jFee').value||0),pri=document.getElementById('jPriority').value;if(!n||!it){alert('Isi yang nitip dan barang dulu.');return}jastip.push({id:Date.now(),name:n,item:it,shop:sh,price:pr,fee:fe,priority:pri,status:'Dicari'});save('ijw_jastip',jastip);renderJastip()}
+function advanceJastip(id){let j=jastip.find(x=>String(x.id)===String(id));let i=JSTATUS.indexOf(j.status);j.status=JSTATUS[Math.min(3,i+1)];save('ijw_jastip',jastip);renderJastip()}
+function delJastip(id){if(!confirm('Hapus titipan ini?'))return;jastip=jastip.filter(x=>String(x.id)!==String(id));save('ijw_jastip',jastip);renderJastip()}
+function renderJastip(){let total=jastip.reduce((s,j)=>s+Number(j.price||0)+Number(j.fee||0),0);let unpaid=jastip.filter(j=>j.status!=='Selesai').reduce((s,j)=>s+Number(j.price||0)+Number(j.fee||0),0);document.getElementById('jastipSummary').innerHTML='Total semua titipan: <b>'+fmt(total)+'</b> • Total belum lunas (belum Selesai): <b>'+fmt(unpaid)+'</b> • Jumlah titipan: '+jastip.length;document.getElementById('jastipList').innerHTML=jastip.length?jastip.map(j=>'<div class="item"><b>'+j.item+'</b> — '+j.name+' <span class="pill">'+j.status+'</span> <span class="pill">'+j.priority+'</span><br><span class="muted">'+(j.shop||'-')+' • Harga '+fmt(j.price)+' + fee '+fmt(j.fee)+' = '+fmt(Number(j.price||0)+Number(j.fee||0))+'</span><br><button class="small" onclick="advanceJastip('+j.id+')">Maju: '+(JSTATUS[Math.min(3,JSTATUS.indexOf(j.status)+1)])+' →</button> <button class="small danger" onclick="delJastip('+j.id+')">Hapus</button></div>').join(''):'<p class="muted">Belum ada titipan.</p>'}
+function addPlace(){let n=document.getElementById('pName').value.trim(),c=document.getElementById('pCity').value.trim(),cat=document.getElementById('pCat').value,r=Number(document.getElementById('pRating').value||5),l=document.getElementById('pLink').value.trim();if(!n||!c){alert('Isi nama tempat dan kota dulu.');return}places.push({id:Date.now(),name:n,city:c,cat:cat,rating:Math.max(1,Math.min(5,r)),link:l});save('ijw_places',places);renderPlaces()}
+function delPlace(id){if(!confirm('Hapus tempat ini?'))return;places=places.filter(x=>String(x.id)!==String(id));save('ijw_places',places);renderPlaces()}
+function renderPlaces(){let cats=['semua','wisata','makan','hotel'];document.getElementById('placeFilters').innerHTML=cats.map(c=>'<button class="chip'+(placeFilter===c?' active':'')+'" onclick="placeFilter=\''+c+'\';renderPlaces()">'+c+'</button>').join('');let list=places.filter(p=>placeFilter==='semua'||p.cat===placeFilter);document.getElementById('placeList').innerHTML=list.length?list.map(p=>'<div class="item"><b>'+p.name+'</b> — '+p.city+' <span class="pill">'+p.cat+'</span> ★'.repeat(0)+'<span> Rating: '+p.rating+'/5</span>'+(p.link?'<br><a href="'+p.link+'" target="_blank" rel="noopener">Buka di Google Maps ↗</a>':'')+'<br><button class="small danger" onclick="delPlace('+p.id+')">Hapus</button></div>').join(''):'<p class="muted">Belum ada tempat tersimpan untuk filter ini.</p>'}
+function renderDests(){let q=(document.getElementById('searchCity').value||'').toLowerCase().trim();let list=DESTS.filter(d=>!q||d.city.toLowerCase().includes(q)||d.country.toLowerCase().includes(q));let el=document.getElementById('destList');if(!list.length){el.innerHTML='<div class="card"><b>Kota "'+document.getElementById('searchCity').value+'” belum ada di katalog versi statis ini.</b><p class="muted">Kami tidak mengarang link booking atau harga untuk kota itu. Coba: Osaka, Kyoto, Tokyo, Bali, Yogyakarta, Seoul, Bangkok, Singapore, Kuala Lumpur, atau Labuan Bajo.</p></div>';return}el.innerHTML=list.map(d=>'<div class="dest"><div class="imgwrap"><img src="'+d.img+'" alt="'+d.city+'" loading="lazy" onerror="this.style.display=\'none\'"><span style="position:absolute"></span></div><div class="body"><h3>'+d.city+', '+d.country+'</h3><p><b>Wisata:</b> '+d.wisata+'</p><p><b>Kuliner:</b> '+d.kuliner+'</p><p><b>Hotel:</b> '+d.hotel+' <span class="muted">(harga perkiraan, cek ulang)</span></p><p><b>Ide jastip:</b> '+d.jastip+'</p><button onclick="makeTripFor(\''+d.city+'\')">✈️ Buat rencana ke '+d.city+'</button></div></div>').join('')}
+function makeTripFor(city){document.getElementById('tripCity').value=city;document.getElementById('tripName').value='Trip '+city;showTab('rencana',document.querySelector('.navbar button'));document.getElementById('tripName').focus();alert('Kota sudah diisi: '+city+'. Lengkapi tanggal & budget, lalu tekan Buat Trip.')}
+function renderAll(){renderTrips();renderJastip();renderPlaces();renderDests()}
+// AI chatbot rule-based
+let aiStarted=false;
+function toggleAI(){let p=document.getElementById('aiPanel');p.classList.toggle('open');if(p.classList.contains('open')&&!aiStarted){aiStarted=true;aiSay('Halo! Saya Asisten AI versi statis (rule-based). Saya bisa bantu contoh itinerary, ide wisata/kuliner/hotel, dan ide jastip untuk 10 kota di katalog. Coba tanya: "itinerary Kyoto 2 hari" atau "rencana saya".','ai');addChips()}}
+function addChips(){let log=document.getElementById('aiLog');let d=document.createElement('div');d.innerHTML='<button class="chip" onclick="askChip(this)">Itinerary Osaka 2 hari</button><button class="chip" onclick="askChip(this)">Rencana saya</button><button class="chip" onclick="askChip(this)">Jastip saya</button><button class="chip" onclick="askChip(this)">Kuliner Kyoto</button>';log.appendChild(d)}
+function askChip(b){document.getElementById('aiInput').value=b.textContent;sendAI()}
+function aiSay(t,who){let log=document.getElementById('aiLog');let d=document.createElement('div');d.className='msg '+who;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function newChat(){document.getElementById('aiLog').innerHTML='';aiStarted=false;toggleAI();toggleAI()}
+function sendAI(){let inp=document.getElementById('aiInput');let q=inp.value.trim();if(!q)return;aiSay(q,'user');inp.value='';aiSay('Sedang mengetik…','ai');setTimeout(()=>{let log=document.getElementById('aiLog');let typing=log.querySelectorAll('.msg.ai');let last=typing[typing.length-1];if(last&&last.textContent==='Sedang mengetik…')last.remove();aiSay(answerAI(q.toLowerCase()),'ai')},400)}
+function answerAI(q){if(q.includes('rencana')||q.includes('trip saya')||q.includes('itinerary saya')){if(!trips.length)return 'Kamu belum menyimpan trip apa pun di browser ini. Buat dulu di tab Rencana.';return 'Trip tersimpan ('+trips.length+'): '+trips.map(t=>t.name+' — '+t.city+' ('+t.start+' s.d. '+t.end+', '+t.items.length+' item, terpakai '+fmt(t.items.reduce((s,i)=>s+Number(i.cost||0),0))+')').join('; ')+'. Harga/jam buka perlu dicek ulang sebelum berangkat.'}
+if(q.includes('jastip')){if(!jastip.length)return 'Belum ada titipan tersimpan. Tambah dulu di tab Jastip.';let tot=jastip.reduce((s,j)=>s+Number(j.price||0)+Number(j.fee||0),0);return 'Jastip tersimpan ('+jastip.length+', total '+fmt(tot)+'): '+jastip.map(j=>j.item+' untuk '+j.name+' — '+j.status).join('; ')+'.'}
+if(q.includes('tempat')&&q.includes('saya')){if(!places.length)return 'Belum ada tempat tersimpan di tab Tempatku.';return 'Tempat tersimpan: '+places.map(p=>p.name+' ('+p.city+', '+p.cat+', '+p.rating+'/5)').join('; ')+'.'}
+let d=DESTS.find(x=>q.includes(x.city.toLowerCase()));
+if(d){if(q.includes('kuliner')||q.includes('makan'))return 'Kuliner '+d.city+': '+d.kuliner+'. Harga perkiraan, cek ulang di tempat.';
+if(q.includes('hotel'))return 'Area hotel '+d.city+': '+d.hotel+'. Harga perkiraan, cek ulang di situs booking resmi.';
+if(q.includes('jastip'))return 'Ide jastip '+d.city+': '+d.jastip+'.';
+if(q.includes('itinerary')||q.includes('itinerari')||q.includes('hari')){let n=q.match(/(\d+)\s*hari/);let days=n?Number(n[1]):2;let out='Contoh itinerary '+d.city+' '+days+' hari (perkiraan, cek ulang jam buka & harga):\n';for(let i=1;i<=days;i++){out+='Hari '+i+': pagi — '+d.wisata.split(', ')[0]+'; siang — '+d.kuliner.split(', ')[0]+'; sore — '+d.wisata.split(', ')[1]+'; malam — kuliner & istirahat di area '+d.hotel.split('(')[0]+'.\n'}return out}
+return 'Di '+d.city+': Wisata — '+d.wisata+'. Kuliner — '+d.kuliner+'. Hotel — '+d.hotel+'. Ide jastip — '+d.jastip+'. Harga perkiraan, cek ulang.'}
+if(q.includes('hotel'))return 'Sebutkan kotanya, misal "hotel Kyoto". Saya hanya punya panduan area hotel untuk 10 kota katalog.';
+if(q.includes('kuliner')||q.includes('makan'))return 'Sebutkan kotanya, misal "kuliner Kyoto". Saya punya ide kuliner untuk 10 kota katalog.';
+return 'Saya bisa bantu untuk 10 kota katalog: Osaka, Kyoto, Tokyo, Bali, Yogyakarta, Seoul, Bangkok, Singapore, Kuala Lumpur, Labuan Bajo. Coba: "itinerary Kyoto 2 hari", "kuliner Osaka", "hotel Bali", "rencana saya", atau "jastip saya". Saya rule-based, tidak bisa booking dan tidak bisa mengubah data kamu.'}
+renderAll();
+</script>
+</body>
+</html>
