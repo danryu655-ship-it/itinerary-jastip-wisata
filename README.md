@@ -2,7 +2,7 @@
 
 Website statis (satu file `index.html`) **Liburan Seru** untuk membuat itinerary, mencatat jastip, dan menyimpan tempat wisata, tempat makan, dan hotel — untuk semua destinasi.
 
-Logo: logo lama dari aplikasi Flutter Liburan Seru (16 Nov 2026) — globe teal tersenyum di latar oranye + tas belanja & koper, dan logo lengkap "Liburan Seru — JASTIP • TRAVEL DUNIA" (file asli `logo-icon.webp` dan `logo-full.webp`, byte-for-byte dari repo `liburan-seru-flutter`). Nama brand "Liburan Seru" sama di mode Bahasa Indonesia dan Inggris.
+Logo: logo lama dari aplikasi Flutter Liburan Seru (16 Nov 2026) — globe teal tersenyum di latar oranye + tas belanja & koper, dan logo lengkap "Liburan Seru — JASTIP • TRAVEL DUNIA". File aslinya (`logo-icon.webp` dan `logo-full.webp`, byte-for-byte dari repo `liburan-seru-flutter`) disimpan di folder ini, dan karena konektor GitHub menolak upload file biner, logo itu di-embed ke `index.html` sebagai data URI (byte yang sama persis) supaya tampil di GitHub Pages. Nama brand "Liburan Seru" sama di mode Bahasa Indonesia dan Inggris.
 
 Buka lewat GitHub Pages: https://danryu655-ship-it.github.io/itinerary-jastip-wisata/
 
