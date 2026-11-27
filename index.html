@@ -45,6 +45,9 @@ button.ghost{background:#e0f2fe;color:#0c4a6e;box-shadow:none}button.danger{back
 .section-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:22px 0 4px}
 .section-head h2{margin:0}
 .section-head .muted{white-space:nowrap}
+.tab-head{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:22px 0 4px}
+.tab-head h2{margin:0}
+.tab-actions{display:flex;flex-wrap:wrap;gap:8px}
 .home-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:12px}
 @media(max-width:900px){.home-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.home-grid{grid-template-columns:repeat(2,1fr)}}
@@ -135,7 +138,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 </section>
 <!-- PERJALANANKU -->
 <section id="tab-perjalananku" class="tab">
-<div class="section-head"><h2 data-i18n="my_trips">Perjalananku</h2><span><button onclick="triggerImport()" data-i18n="btn_import_trip">⬆️ Impor Trip</button> <button onclick="scrollToTripForm()" data-i18n="new_trip_btn">+ Perjalanan baru</button></span></div>
+<div class="tab-head"><h2 data-i18n="my_trips">Perjalananku</h2><span class="tab-actions"><button onclick="triggerImport()" data-i18n="btn_import_trip">⬆️ Impor Trip</button><button onclick="scrollToTripForm()" data-i18n="new_trip_btn">+ Perjalanan baru</button></span></div>
 <div id="tripList"></div>
 <input type="file" id="importTripFile" accept=".json,application/json" style="display:none" onchange="onImportFile(event)">
 <div class="card" id="importDupCard" style="display:none"><h3 data-i18n="import_dup_h">Trip sudah ada</h3><p class="muted" id="importDupMsg"></p><div style="display:flex;gap:8px;flex-wrap:wrap"><button onclick="resolveImportDup('overwrite')" data-i18n="import_overwrite">Timpa trip lama</button><button class="ghost" onclick="resolveImportDup('new')" data-i18n="import_new">Simpan sebagai trip baru</button><button class="ghost" onclick="cancelImportDup()" data-i18n="btn_cancel">Batal</button></div></div>
@@ -169,7 +172,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 </section>
 <!-- JASTIP -->
 <section id="tab-jastip" class="tab">
-<h2 data-i18n="jastip_h">🛍️ Jastip</h2>
+<div class="tab-head"><h2 data-i18n="jastip_h">🛍️ Jastip</h2></div>
 <div class="card">
 <h3 data-i18n="jastip_new">Titipan Baru</h3>
 <div class="row"><div><label data-i18n="lbl_who">Yang nitip</label><input id="jName" placeholder="cth: Villia" data-i18n-ph="ph_j_name"></div><div><label data-i18n="lbl_item">Barang</label><input id="jItem" placeholder="cth: Matcha KitKat" data-i18n-ph="ph_j_item"></div></div>
@@ -198,7 +201,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 <p class="muted" id="searchHint">Kota di luar katalog di bawah belum ada datanya di versi statis ini — kami tidak mengarang link booking atau harga palsu. Coba salah satu dari 19 kota katalog.</p>
 </div>
 <div id="destList"></div>
-<h2 data-i18n="places_h" style="margin-top:24px">📍 Tempatku</h2>
+<div class="tab-head" style="margin-top:24px"><h2 data-i18n="places_h">📍 Tempatku</h2></div>
 <div class="card">
 <h3 data-i18n="save_place_h">Simpan Tempat</h3>
 <div class="row"><div><label data-i18n="lbl_place_name">Nama tempat</label><input id="pName" placeholder="cth: Dotonbori" data-i18n-ph="ph_p_name"></div><div><label data-i18n="lbl_place_city">Kota</label><input id="pCity" placeholder="cth: Osaka" data-i18n-ph="ph_city"></div></div>
