@@ -20,6 +20,9 @@ header{padding:22px 16px 12px;max-width:980px;margin:0 auto}
 body.dark .theme-row button{background:rgba(18,58,92,.9);color:#bae6fd}
 .hero{background:linear-gradient(100deg,#0d9488 0%,#0891b2 48%,#0284c7 100%);border-radius:24px;padding:36px 32px;color:#fff;box-shadow:0 20px 48px rgba(2,132,199,.32);position:relative;overflow:hidden}
 .hero::after{content:"🌍";position:absolute;right:18px;top:-38px;font-size:190px;opacity:.13;pointer-events:none}
+.hero .brand-row{flex-wrap:wrap}
+.hero .foot-full-logo.hero-logo-card{margin:0 0 0 auto;align-self:flex-start;flex:0 0 auto;max-width:180px;width:180px;min-height:96px;padding:6px;z-index:2}
+@media(max-width:600px){.hero .foot-full-logo.hero-logo-card{max-width:110px;width:110px;min-height:60px;padding:4px}}
 .hero-badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;margin-bottom:16px}
 .hero h1{margin:0;font-size:38px;line-height:1.15;letter-spacing:-.5px;max-width:640px}
 .hero p{color:#e0f2fe;margin:12px 0 0;font-size:16px;line-height:1.55;max-width:640px}
@@ -28,7 +31,7 @@ body.dark .theme-row button{background:rgba(18,58,92,.9);color:#bae6fd}
 .hero-stats .stat b{display:block;font-size:24px;line-height:1.1}
 .hero-stats .stat span{font-size:13px;font-weight:700;opacity:.95}
 .note{background:rgba(255,255,255,.92);border:1px solid #bae6fd;border-radius:16px;padding:12px 14px;color:#334155;font-size:13px;line-height:1.5;max-width:980px;margin:12px auto 0;box-shadow:0 8px 22px rgba(14,165,233,.14)}
-main{max-width:980px;margin:0 auto;padding:14px 16px}
+main{max-width:980px;margin:0 auto;padding:14px 16px 4px}
 section.tab{display:none}section.tab.active{display:block}
 .card{background:#ffffff;border:1px solid #bae6fd;border-radius:24px;padding:18px;margin:14px 0;box-shadow:0 12px 32px rgba(14,165,233,.16);transition:transform .2s ease,box-shadow .2s ease}
 .card:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(14,165,233,.22)}
@@ -96,7 +99,7 @@ button.ghost{background:#e0f2fe;color:#0c4a6e;box-shadow:none}button.danger{back
 .navbar button.nav-logo{padding:4px 10px 4px 4px}
 .nav-logo svg{width:30px;height:30px;display:block}
 .nav-logo b{font-size:14px;color:#0c4a6e;white-space:nowrap}
-footer{max-width:980px;margin:26px auto 0;padding:0 16px 8px;text-align:center;color:#475569;font-size:13px;line-height:1.6}
+footer{max-width:980px;margin:4px auto 0;padding:0 16px 8px;text-align:center;color:#475569;font-size:13px;line-height:1.6}
 footer .foot-brand{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:900;color:#0c4a6e;font-size:16px}
 footer .foot-brand svg{width:28px;height:28px}
 body.dark footer{color:#a5c8e0}
@@ -121,7 +124,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 <header id="heroHeader">
 <div class="theme-row"><button onclick="toggleLang()" id="langBtn">🌐 EN</button><button onclick="toggleTheme()" id="themeBtn">🌙 Mode Gelap</button></div>
 <div class="hero">
-<div class="brand-row"><span class="brand-logo"><span class="logo-img" role="img" aria-label="Logo Liburan Seru"></span></span><span><span class="brand-name">Liburan Seru</span><span class="brand-tag" data-i18n="brand_tag">Rencanakan liburanmu dengan seru</span></span></div>
+<div class="brand-row"><span class="brand-logo"><span class="logo-img" role="img" aria-label="Logo Liburan Seru"></span></span><span><span class="brand-name">Liburan Seru</span><span class="brand-tag" data-i18n="brand_tag">Rencanakan liburanmu dengan seru</span></span><span class="foot-full-logo hero-logo-card" role="img" aria-label="Liburan Seru — Jastip • Travel Dunia"></span></div>
 <span class="hero-badge" data-i18n="hero_badge">☀️ Rencanakan perjalananmu ke mana saja</span>
 <h1 data-i18n="hero_title">Itinerary, Jastip &amp; Tempat Seru — semua dalam satu tempat</h1>
 <p data-i18n="hero_sub">Buat rencana harian per destinasi, catat titipan belanja teman, dan simpan tempat wisata, kuliner, dan hotel incaranmu. Berlaku untuk semua destinasi — dalam dan luar negeri.</p>
@@ -134,7 +137,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 <section id="tab-beranda" class="tab active">
 <div class="section-head"><h2 data-i18n="next_title">Mau ke mana berikutnya?</h2><span class="muted" data-i18n="next_hint">Ketuk untuk mulai rencana</span></div>
 <div class="home-grid" id="homeGrid"></div>
-<p class="muted" style="margin-top:10px" id="otherDests">Destinasi lain (London, Paris, Roma, Madrid, Swiss Alps, Dubai, Istanbul, New York, Sydney, dan lainnya) ada di tab <b>Jelajah</b> — atau buat perjalanan ke kota mana pun di tab <b>Perjalananku</b>.</p>
+<p class="muted" style="margin:10px 0 0" id="otherDests">Destinasi lain (London, Paris, Roma, Madrid, Swiss Alps, Dubai, Istanbul, New York, Sydney, dan lainnya) ada di tab <b>Jelajah</b> — atau buat perjalanan ke kota mana pun di tab <b>Perjalananku</b>.</p>
 </section>
 <!-- PERJALANANKU -->
 <section id="tab-perjalananku" class="tab">
@@ -215,7 +218,7 @@ body.dark footer .foot-brand{color:#bae6fd}
 </div>
 </section>
 </main>
-<footer><span class="foot-full-logo" role="img" aria-label="Liburan Seru — Jastip • Travel Dunia"></span><div class="foot-brand"><span class="logo-img" role="img" aria-label="Logo Liburan Seru"></span><span>Liburan Seru</span></div><p data-i18n="footer_text">Liburan Seru — buat itinerary, catat jastip, dan simpan tempat wisata, kuliner, dan hotel untuk semua destinasi.</p></footer>
+<footer><div class="foot-brand"><span class="logo-img" role="img" aria-label="Logo Liburan Seru"></span><span>Liburan Seru</span></div><p data-i18n="footer_text">Liburan Seru — buat itinerary, catat jastip, dan simpan tempat wisata, kuliner, dan hotel untuk semua destinasi.</p></footer>
 <!-- floating navbar -->
 <nav class="navbar" aria-label="Navigasi utama">
 <button class="nav-logo" onclick="showTab('beranda')" title="Beranda" aria-label="Beranda"><span class="logo-img" role="img" aria-label="Logo Liburan Seru"></span><b>Liburan Seru</b></button>
