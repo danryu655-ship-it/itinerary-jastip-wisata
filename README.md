@@ -24,3 +24,5 @@ Semua data tersimpan di browser kamu (localStorage, prefix `ijw_`). Tidak ada se
 - Harga yang tampil adalah **perkiraan, cek ulang** sebelum berangkat.
 - Chatbot versi statis ini rule-based, **tidak bisa booking dan tidak bisa mengubah data**.
 - Versi fullstack asli di Muse (dengan penyimpanan server dan AI sungguhan) tidak bisa diekspor — ini adalah versi statis yang dibuat ulang untuk GitHub Pages.
+
+Desain PDF/cetak gaya template baru (disetujui user 28 Nov 2026): cover banner foto lebar penuh dengan judul menimpa di atas foto, Trip Summary di cover tepat di bawah card Hotel Day (tidak lagi di akhir), foto lingkaran di tiap kepala hari, daftar aktivitas gaya template (jam - nama - meta - biaya). Logo tetap di cover (brand). Foto lingkaran tiap hari memakai foto destinasi yang sama dengan cover (data URI untuk Kyoto, URL katalog untuk destinasi lain — URL luar tidak ter-raster ke PDF perangkat).
